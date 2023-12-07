@@ -17,17 +17,17 @@ jobs:
     - name: setup toolchain
       uses: dtolnay/rust-toolchain@stable
       
-    - name: build tcli.x86_64-pc-windows-msvc
+    - name: build tcli-x86_64-pc-windows-msvc
       run: cargo build
 
-    - name: setup release version
-      run: | 
-        echo "TCLI_VER=${./target/release/tcli.exe --version}" >> $GITHUB_ENV
+    # - name: setup release version
+    #   run: | 
+    #     echo "TCLI_VER=${./target/release/tcli.exe --version}" >> $GITHUB_ENV
 
     - name: upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: tcli.exe
+        name: tcli-x86_64-pc-windows-msvc
         path: ./target/debug/tcli.exe
 
     # - name: create and publish release
