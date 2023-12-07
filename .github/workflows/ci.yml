@@ -6,6 +6,7 @@ on:
 jobs:
   windows-release:
     name: build and release
+    runs-on: windows-latest
     
     steps:
     - name: checkout
