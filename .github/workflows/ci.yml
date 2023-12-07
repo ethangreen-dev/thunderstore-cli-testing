@@ -10,9 +10,11 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v4
+
+    - name: setup toolchain
+      uses: dtolnay/rust-toolchain@stable
       
     - name: build tcli.x86_64-oc-windows-msvc
-      uses: dtolnay/rust-toolchain@stable
       run: cargo build --release
 
     - name: setup release version
