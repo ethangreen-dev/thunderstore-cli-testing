@@ -30,7 +30,7 @@ jobs:
         files: ./target/debug/tcli.exe
         prerelease: true
         draft: false
-        name: ${{TCLI_VER}}.${{github.ref_name}}
+        name: ${{ echo $TCLI_VER }}.${{github.ref_name}}
         generate_release_notes: true
 
     # - name: create and publish release
