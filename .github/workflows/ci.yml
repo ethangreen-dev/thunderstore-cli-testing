@@ -8,9 +8,8 @@ jobs:
     name: build and release
     steps:
     - name: build tcli.x86_64-oc-windows-msvc
-      uses:
-        - actions/checkout@v4
-        - dtolnay/rust-toolchain@stable
+    - uses: actions/checkout@v4
+    - uses: dtolnay/rust-toolchain@stable
       run: cargo build --release
 
     - name: setup release version
