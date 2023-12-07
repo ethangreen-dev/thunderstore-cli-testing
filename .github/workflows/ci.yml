@@ -6,10 +6,13 @@ on:
 jobs:
   windows-release:
     name: build and release
+    
     steps:
+    - name: checkout
+      uses: actions/checkout@v4
+      
     - name: build tcli.x86_64-oc-windows-msvc
-    - uses: actions/checkout@v4
-    - uses: dtolnay/rust-toolchain@stable
+      uses: dtolnay/rust-toolchain@stable
       run: cargo build --release
 
     - name: setup release version
