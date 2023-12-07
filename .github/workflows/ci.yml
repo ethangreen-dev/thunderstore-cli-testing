@@ -1,3 +1,5 @@
+permissions: read,write
+
 on:
   push:
     branches:
@@ -24,14 +26,20 @@ jobs:
       run: | 
         echo "TCLI_VER=${./target/release/tcli.exe --version}" >> $GITHUB_ENV
 
-    - name: create and publish release
-      uses: softprops/action-gh-release@v1
+    - name: upload artifact
+      uses: actions/upload-artifact@v3
       with:
-        files: ./target/debug/tcli.exe
-        prerelease: true
-        draft: false
-        name: $(TCLI_VER).${{github.ref_name}}
-        generate_release_notes: true
+        name: tcli.exe
+        path: ./target/debug/tcli.exe
+
+    # - name: create and publish release
+    #   uses: softprops/action-gh-release@v1
+    #   with:
+    #     files: ./target/debug/tcli.exe
+    #     prerelease: true
+    #     draft: false
+    #     name: $TCLI_VER.${{github.ref_name}}
+    #     generate_release_notes: true
 
     # - name: create and publish release
     #   uses: actions/create-release@v1
