@@ -14,8 +14,9 @@ jobs:
       run: cargo build --release
 
     - name: setup release version
-      run: echo "TCLI_VER=$(./target/release/tcli.exe --version)" >> $GITHUB_ENV
-      run: echo "TAG_NAME=$(GITHUB_REF#refs/*/)" >> $GITHUB_ENVi
+      run: | 
+        echo "TCLI_VER=$(./target/release/tcli.exe --version)" >> $GITHUB_ENV
+        echo "TAG_NAME=$(GITHUB_REF#refs/*/)" >> $GITHUB_ENVi
 
     - name: create and publish release
       uses: softprops/action-gh-release@v1
