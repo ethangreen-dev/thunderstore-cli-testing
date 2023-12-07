@@ -10,10 +10,10 @@ jobs:
     - name: build tcli.x86_64-oc-windows-msvc
     - uses: actions/checkout@v4
     - uses: dtolnay/rust-toolchain@stable
-    - run: cargo build --release
+      run: cargo build --release
 
     - name: setup release version
-    - run: | 
+      run: | 
         echo "TCLI_VER=$(./target/release/tcli.exe --version)" >> $GITHUB_ENV
         echo "TAG_NAME=$(GITHUB_REF#refs/*/)" >> $GITHUB_ENVi
 
