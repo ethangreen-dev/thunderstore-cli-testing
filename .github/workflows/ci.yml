@@ -17,21 +17,20 @@ jobs:
     - name: setup toolchain
       uses: dtolnay/rust-toolchain@stable
       
-    - name: build tcli.x86_64-oc-windows-msvc
-      run: cargo build --release
+    - name: build tcli.x86_64-pc-windows-msvc
+      run: cargo build
 
     - name: setup release version
       run: | 
-        echo "TCLI_VER=$(./target/release/tcli.exe --version)" >> $GITHUB_ENV
-        echo "TAG_NAME=$(GITHUB_REF#refs/*/)" >> $GITHUB_ENV
+        echo "TCLI_VER=${./target/release/tcli.exe --version}" >> $GITHUB_ENV
 
     - name: create and publish release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./target/release/tcli.exe
+        files: ./target/debug/tcli.exe
         prerelease: true
         draft: false
-        name: $(TCLI_VER).$(TAG_NAME)
+        name: ${{TCLI_VER}}.${{github.ref_name}}
         generate_release_notes: true
 
     # - name: create and publish release
