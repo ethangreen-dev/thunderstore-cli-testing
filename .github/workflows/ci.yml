@@ -1,3 +1,8 @@
+on:
+  push:
+    branches:
+      - clingwrap
+
 jobs:
   windows-release:
     name: build and release
