@@ -1,0 +1,42 @@
+jobs:
+  windows-release:
+    name: build and release
+    steps:
+    - name: build tcli.x86_64-oc-windows-msvc
+      uses: actions/checkout@v4
+      uses: dtolnay/rust-toolchain@stable
+      run: cargo build --release
+
+    - name: setup release version
+      run: echo "TCLI_VER=$(./target/release/tcli.exe --version)" >> $GITHUB_ENV
+      run: echo "TAG_NAME=$(GITHUB_REF#refs/*/)" >> $GITHUB_ENVi
+
+    - name: create and publish release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ./target/release/tcli.exe
+        prerelease: true
+        draft: false
+        name: $(TCLI_VER).$(TAG_NAME)
+        generate_release_notes: true
+
+    # - name: create and publish release
+    #   uses: actions/create-release@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     tag_name: $TAG_NAME
+    #     release_name: ${{ TCLI_VER }}.${{ TAG_NAME }}
+    #   run:
+    #     draft: true
+    #     prerelease: true
+
+    # - uses: 
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: ./target/release/tcli.exe
+    #     asset-name: tcli.exe
+    #     asset_content_type: 
+    
