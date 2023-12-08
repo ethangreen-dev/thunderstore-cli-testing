@@ -8,13 +8,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - target: x86_64-pc-windows-msvc
-            os: windows-latest
-            binary: tcli.exe
-          
-          - target: x86_64-unknown-linux-gnu
-            os: ubuntu-latest
-            binary: tcli
+        - target: x86_64-pc-windows-msvc
+          os: windows-latest
+          binary: tcli.exe
+        
+        - target: x86_64-unknown-linux-gnu
+          os: ubuntu-latest
+          binary: tcli
     
     name: build tcli
     runs-on: ${{ matrix.os }}
