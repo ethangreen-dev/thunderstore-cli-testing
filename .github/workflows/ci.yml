@@ -32,10 +32,10 @@ jobs:
       uses: Swatinem/rust-cache@v2
       
     - name: build tcli
-      run: cargo build --target ${{ matrix.target }}
+      run: cargo build --target ${{ matrix.target }} --release
 
     - name: upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: tcli-${{ matrix.target }}
-        path: ./target/${{ matrix.target }}/debug/${{ matrix.binary }}
+        path: ./target/${{ matrix.target }}/release/${{ matrix.binary }}
