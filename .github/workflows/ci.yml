@@ -30,7 +30,7 @@ jobs:
       uses: Swatinem/rust-cache@v2
       
     - name: build tcli
-      run: cargo build
+      run: cargo build --target ${{ matrix.target }}
 
     - name: upload artifact
       uses: actions/upload-artifact@v3
