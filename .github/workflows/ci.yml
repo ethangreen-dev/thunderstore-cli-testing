@@ -7,7 +7,12 @@ jobs:
   build:
     strategy:
       matrix:
-        target: [x86_64-pc-windows-msvc, x86_64-unknown-linux-gnu]
+        include:
+          - target: x86_64-pc-windows-msvc
+            binary: tcli.exe
+          
+          - target: x86_64-unknown-linux-gnu
+            binary: tcli
     
     name: build tcli
     runs-on: windows-latest
@@ -19,7 +24,7 @@ jobs:
     - name: setup toolchain
       uses: dtolnay/rust-toolchain@stable
       with:
-        targets: ${{ matrix.target }}
+        targets: ${{ matrix.include.target }}
 
     - name: restore rust-cache
       uses: Swatinem/rust-cache@v2
@@ -31,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: tcli-${{ matrix.target }}
-        path: ./target/${{ matrix.target }}/debug/tcli?(.exe)
+        path: ./target/${{ matrix.include.target }}/debug/${{ matrix.include.binary }}
