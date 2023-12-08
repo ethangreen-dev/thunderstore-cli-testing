@@ -89,21 +89,21 @@ impl GameImportBuilder {
                     win::gamepass::get_game_path(identifier).map(|x| (dist, x))
                 }
                 #[cfg(target_os = "linux")]
-                GameDefPlatform::GamePass { _identifier } => None,
+                GameDefPlatform::GamePass { identifier } => None,
 
                 #[cfg(windows)]
                 GameDefPlatform::Origin { identifier } => {
                     win::eadesktop::get_game_path(identifier).map(|x| (dist, x))
                 }
                 #[cfg(target_os = "linux")]
-                GameDefPlatform::Origin { _identifier } => None,
+                GameDefPlatform::Origin { identifier } => None,
 
                 #[cfg(windows)]
                 GameDefPlatform::EpicGames { identifier } => {
                     win::egs::get_game_path(identifier).map(|x| (dist, x))
                 }
                 #[cfg(target_os = "linux")]
-                GameDefPlatform::EpicGames { _identifier } => None,
+                GameDefPlatform::EpicGames { identifier } => None,
 
                 _ => None,
             })
