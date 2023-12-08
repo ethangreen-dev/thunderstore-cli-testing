@@ -24,7 +24,7 @@ jobs:
     - name: setup toolchain
       uses: dtolnay/rust-toolchain@stable
       with:
-        targets: ${{ matrix.include.target }}
+        targets: ${{ matrix.target }}
 
     - name: restore rust-cache
       uses: Swatinem/rust-cache@v2
