@@ -6,10 +6,12 @@ use serde::{Deserialize, Serialize};
 
 use super::{ecosystem, steam};
 use crate::error::Error;
-use crate::game::win;
 use crate::project::ProjectPath;
 use crate::ts::v1::models::ecosystem::{GameDef, GameDefPlatform};
 use crate::util::os::OS;
+
+#[cfg(target_os = "windows")]
+use crate::game::win;
 
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct GameData {
