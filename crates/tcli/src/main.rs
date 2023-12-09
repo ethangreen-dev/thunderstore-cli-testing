@@ -40,6 +40,8 @@ pub static TCLI_HOME: Lazy<PathBuf> = Lazy::new(|| {
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
+    let thing = 42;
+    
     match Args::parse().commands {
         Commands::Init {
             command,
