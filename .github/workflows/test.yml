@@ -11,6 +11,7 @@ jobs:
           os: windows-latest
         - target: x86_64-unknown-linux-gnu
           os: ubuntu-latest
+    
     name: test tcli
     runs-on: ${{ matrix.os }}
 
