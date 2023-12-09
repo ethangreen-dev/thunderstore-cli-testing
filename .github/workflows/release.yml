@@ -16,7 +16,7 @@ jobs:
       uses: shogo82148/actions-create-release@v1
   
   build:
-    needs: prepare]
+    needs: prepare
     
     strategy:
       matrix:
