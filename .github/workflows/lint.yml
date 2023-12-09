@@ -1,0 +1,23 @@
+on:
+  pull_request:
+
+jobs:
+  test:
+    name: lint tcli
+    runs-on: windows-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+    - name: setup toolchain
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: restore rust-cache
+      uses: Swatinem/rust-cache@v2
+
+    - name: clippy lint
+      uses: giraffate/clippy-action@v1
+      with:
+        reporter: "github-pr-review"
+        github_token: ${{ secrets.GITHUB_TOKEN }}      
