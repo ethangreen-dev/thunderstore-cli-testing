@@ -19,6 +19,8 @@ jobs:
 
     - name: restore rust-cache
       uses: Swatinem/rust-cache@v2
+      with:
+        cache-on-failure: true
 
     - name: setup clippy-sarif
       run: cargo install clippy-sarif sarif-fmt
@@ -29,6 +31,7 @@ jobs:
         | clippy-sarif 
         | tee clippy-results.sarif 
         | sarif-fmt
+      continue-on-failure: true
 
     - name: upload and submit sarif
       uses: github/codeql-action/upload-sarif@v2
