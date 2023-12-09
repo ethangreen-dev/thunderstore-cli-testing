@@ -1,9 +1,15 @@
+name: Check
+
 on:
   pull_request:
+  push:
+    branches:
+      - main
+      - develop
 
 jobs:
-  lint:
-    name: lint tcli
+  clippy:
+    name: Clippy
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -11,21 +17,21 @@ jobs:
       security-events: write
 
     steps:
-    - name: checkout
+    - name: Checkout
       uses: actions/checkout@v4
 
-    - name: setup toolchain
+    - name: Setup toolchain
       uses: dtolnay/rust-toolchain@stable
 
-    - name: restore rust-cache
+    - name: Restore cache
       uses: Swatinem/rust-cache@v2
       with:
         cache-on-failure: true
 
-    - name: setup clippy-sarif
+    - name: Install clippy-sarif
       run: cargo install clippy-sarif sarif-fmt
 
-    - name: clippy lint
+    - name: Run clippy
       run: >
         cargo clippy --workspace --all-features --message-format=json
         | clippy-sarif 
@@ -33,8 +39,22 @@ jobs:
         | sarif-fmt
       continue-on-error: true
 
-    - name: upload and submit sarif
+    - name: Upload and submit SARIF
       uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: clippy-results.sarif
         wait-for-processing: true
+  
+  rustfmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+  
+    - name: Setup toolchain
+      uses: dtolnay/rust-toolchain@nightly
+  
+    - name: Run rustfmt
+      run: cargo fmt --check
