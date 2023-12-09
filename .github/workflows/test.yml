@@ -1,3 +1,5 @@
+name: Test
+
 on:
   pull_request:
 
@@ -11,20 +13,22 @@ jobs:
         - target: x86_64-unknown-linux-gnu
           os: ubuntu-latest
     
-    name: test tcli
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: checkout
+    - name: Checkout
       uses: actions/checkout@v4
 
-    - name: setup toolchain
+    - name: Setup toolchain
       uses: dtolnay/rust-toolchain@stable
       with:
         targets: ${{ matrix.target }}
 
-    - name: restore rust-cache
+    - name: Restore cache
       uses: Swatinem/rust-cache@v2
 
-    - name: test tcli
-      run: cargo test --target ${{ matrix.target }}
+    - name: Build tests
+      run: cargo test --target ${{ matrix.target }} --no-run
+
+    - name: Run tests
+      run: cargo test --target ${{ matrix.target }} --no-fail-fast
