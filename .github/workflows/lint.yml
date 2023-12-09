@@ -19,5 +19,5 @@ jobs:
     - name: clippy lint
       uses: giraffate/clippy-action@v1
       with:
-        reporter: "github-pr-review"
+        reporter: "github-pr-check"
         github_token: ${{ secrets.GITHUB_TOKEN }}      
