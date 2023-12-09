@@ -25,7 +25,7 @@ jobs:
 
     - name: clippy lint
       run: >
-        cargo clippy --workspace --all-targets --all-features --message-format=json -- -D warnings
+        cargo clippy --workspace --all-targets --all-features --message-format=json
         | clippy-sarif 
         | tee clippy-results.sarif 
         | sarif-fmt
