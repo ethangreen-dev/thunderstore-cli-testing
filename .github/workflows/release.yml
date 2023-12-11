@@ -6,31 +6,20 @@ on:
     - "[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-    - id: check
-      uses: shogo82148/actions-check-permissions@v1 
-
-    - name: Check token permissions
-      if: steps.check.outputs.permission != 'write'
-      run: echo 'invalid permissions'
-
   prepare:
     name: Create draft release
     runs-on: ubuntu-latest
-    
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-    
+
     steps:
     - name: Create draft release
-      id: create_release
-      uses: shogo82148/actions-create-release@v1
-      with:
-        draft: true
-        prerelease: true
-        release_name: Test for ${{ github.run_id }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: >-
+        gh release create ${{ github.ref_name }} 
+        --title "Release ${{ github.ref_name }}"
+        --draft 
+        --prerelease
+        --generate-notes
   
   build:
     needs: prepare
@@ -70,9 +59,10 @@ jobs:
     - name: Build
       run: cargo build --target ${{ matrix.target }} --release
 
-    - name: Upload artifact to draft release
-      uses: shogo82148/actions-upload-release-asset@v1
-      with:
-        upload_url: ${{ needs.prepare.outputs.upload_url }}
-        asset_path: ./target/${{ matrix.target }}/release/${{ matrix.binary }}
-          
+    - name: Submit build artifact
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: >-
+        gh release upload ${{ github.ref_name }} 
+        ./target/${{ matrix.target }}/release/${{ matrix.binary }}
+ 
