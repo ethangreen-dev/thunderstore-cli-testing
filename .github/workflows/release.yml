@@ -57,7 +57,7 @@ jobs:
       run: cargo install cargo-edit --locked
 
     - name: Set Cargo.toml version
-      run: cargo set-version ${{ github.ref }}
+      run: cargo set-version ${{ github.ref_name }}
     
     - name: Build
       run: cargo build --target ${{ matrix.target }} --release
