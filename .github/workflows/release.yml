@@ -61,11 +61,13 @@ jobs:
     
     - name: Build
       run: cargo build --target ${{ matrix.target }} --release
+    
+    - name: Compress
+      run: zip tcli-${{ matrix.target }}.zip ./target/${{ matrix.target }}/release/${{ matrix.binary }}
 
     - name: Submit build artifact
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: >-
-        gh release upload ${{ github.ref_name }} 
-        ./target/${{ matrix.target }}/release/${{ matrix.binary }}
+        gh release upload ${{ github.ref_name }} tcli-${{ matrix.target }}.zip
  
