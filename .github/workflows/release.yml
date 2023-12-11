@@ -27,6 +27,10 @@ jobs:
     - name: Create draft release
       id: create_release
       uses: shogo82148/actions-create-release@v1
+      with:
+        draft: true
+        prerelease: true
+        release_name: Test for ${{ github.run_id }}
   
   build:
     needs: prepare
