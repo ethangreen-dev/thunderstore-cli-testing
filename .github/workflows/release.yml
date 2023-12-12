@@ -95,7 +95,7 @@ jobs:
       - name: Compress
         run: |
           cd ./target/${{ matrix.target }}/release/
-          tar -czfv tcli-${{ matrix.target }}.tar.gz --directory=./target/${{ matrix.target }}/release/ tcli
+          tar -czfv tcli-${{ matrix.target }}.tar.gz tcli
           mv tcli-${{ matrix.target }}.tar.gz $GITHUB_WORKSPACE 
 
       - name: Submit build artifact
