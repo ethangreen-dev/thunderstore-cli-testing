@@ -57,7 +57,7 @@ jobs:
         run: |
           cd ./target/${{ matrix.target }}/release/
           7z a "tcli-${{ matrix.target }}.zip" "tcli.exe"
-          mv "tcli-${{ matrix.target }}.zip" $GITHUB_WORKSPACE
+          mv "tcli-${{ matrix.target }}.zip" ${{ github.workspace }}
       
       - name: Submit build artifact
         env:
