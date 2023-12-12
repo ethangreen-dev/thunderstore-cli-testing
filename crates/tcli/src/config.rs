@@ -9,7 +9,7 @@ use crate::TCLI_HOME;
 
 pub enum Vars {
     HomeDir,
-    AuthKey,
+    AuthKey, 
 }
 
 impl Vars {
