@@ -1,3 +1,5 @@
+name: Release
+
 on:
   push:
     tags:
@@ -54,7 +56,7 @@ jobs:
       - name: Compress
         run: |
           cd ./target/${{ matrix.target }}/release/
-          7z a "tcli-${{ matrix.target }}".zip "tcli.exe"
+          7z a "tcli-${{ matrix.target }}.zip" "tcli.exe"
           mv "tcli-${{ matrix.target }}.zip" $GITHUB_WORKSPACE
       
       - name: Submit build artifact
@@ -95,7 +97,7 @@ jobs:
       - name: Compress
         run: |
           cd ./target/${{ matrix.target }}/release/
-          tar -czfv tcli-${{ matrix.target }}.tar.gz tcli
+          tar czfv tcli-${{ matrix.target }}.tar.gz tcli
           mv tcli-${{ matrix.target }}.tar.gz $GITHUB_WORKSPACE 
 
       - name: Submit build artifact
